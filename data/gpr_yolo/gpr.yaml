@@ -1,0 +1,4 @@
+path: /workspace/data/gpr_yolo
+train: images/train
+val: images/val
+names: ['hyperbola']
