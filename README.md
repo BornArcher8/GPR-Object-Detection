@@ -36,3 +36,22 @@ as backbone gave the best results.
 - Achieved mAP 0.90 in detecting hyperbolas 
 
 ![](FRCNN_RESULTS.png)
+
+### YOLO migration (Ultralytics)
+- Run conversion to YOLO format and create dataset YAML:
+
+```bash
+python /workspace/scripts/convert_gpr_to_yolo.py --source_root /workspace/data/gpr-data-classifier/hyperbola-classifier --output_root /workspace/data/gpr_yolo --val_split 0.2
+```
+
+- Train a YOLOv8 model:
+
+```bash
+python /workspace/scripts/train_yolo.py --data_yaml /workspace/data/gpr_yolo/gpr.yaml --model yolov8n.pt --epochs 50 --imgsz 640 --batch 16
+```
+
+- Inference:
+
+```bash
+python /workspace/scripts/predict_yolo.py --weights /workspace/Results/yolo_runs/gpr_yolov8/weights/best.pt --source /workspace/data/gpr_yolo/images/val
+```
